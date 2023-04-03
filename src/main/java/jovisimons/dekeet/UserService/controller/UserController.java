@@ -21,6 +21,31 @@ public class UserController {
         return new ResponseEntity<>("Doet het!", HttpStatus.OK);
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> GetTest(){
+        return new ResponseEntity<>("Doet het!", HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> UpdateUser(@PathVariable String uid, @RequestBody User user) {
+        try {
+            svc.UpdateUser(user);
+            return new ResponseEntity<>(user.getName()+" updated", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> UpdateUser(@PathVariable String uid) {
+        try {
+            svc.DeleteUser(uid);
+            return new ResponseEntity<>(uid+" deleted", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> GetAllUsers(){
         return new ResponseEntity<>(svc.GetAll(), HttpStatus.OK);

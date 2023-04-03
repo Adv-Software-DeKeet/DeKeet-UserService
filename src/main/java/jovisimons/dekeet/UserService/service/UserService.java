@@ -28,6 +28,16 @@ public class UserService {
         sendMessage(user);
     }
 
+    public void UpdateUser(User user){
+        repo.save(user);
+        rabbitTemplate.convertAndSend("x.de-keet", "q.userUpdate", user);
+    }
+
+    public void DeleteUser(String uid){
+        repo.deleteById(uid);
+        rabbitTemplate.convertAndSend("x.de-keet", "q.deleteUser", uid);
+    }
+
     public List<User> GetAll(){
         return repo.findAll();
     }
