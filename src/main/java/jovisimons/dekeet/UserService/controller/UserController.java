@@ -21,6 +21,11 @@ public class UserController {
         return new ResponseEntity<>("Doet het!", HttpStatus.OK);
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> GetTest(){
+        return new ResponseEntity<>("Doet het!", HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> UpdateUser(@PathVariable String uid, @RequestBody User user) {
         try {
