@@ -1,9 +1,6 @@
 package jovisimons.dekeet.UserService.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.Declarables;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +11,7 @@ public class RabbitMQConfig {
     @Bean
     public Declarables createKeetSchema(){
         return new Declarables(
-                new FanoutExchange("x.de-keet"),
+                new DirectExchange("x.de-keet"),
                 new Queue("q.auth" ),
                 new Queue("q.userUpdate" ),
                 new Queue("q.userDelete" ),
