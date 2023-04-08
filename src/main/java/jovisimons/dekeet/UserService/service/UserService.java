@@ -17,7 +17,7 @@ public class UserService {
     private RabbitTemplate rabbitTemplate;
 
     public void sendMessage(User user) {
-        rabbitTemplate.convertAndSend("x.de-keet", "q.auth", user);
+        rabbitTemplate.convertAndSend("x.de-keet", "userRegister", user);
     }
 
     public void CreateUser(User user){
@@ -30,12 +30,12 @@ public class UserService {
 
     public void UpdateUser(User user){
         repo.save(user);
-        rabbitTemplate.convertAndSend("x.de-keet", "q.userUpdate", user);
+        rabbitTemplate.convertAndSend("x.de-keet", "userUpdate", user);
     }
 
     public void DeleteUser(String uid){
         repo.deleteById(uid);
-        rabbitTemplate.convertAndSend("x.de-keet", "q.deleteUser", uid);
+        rabbitTemplate.convertAndSend("x.de-keet", "deleteUser", uid);
     }
 
     public List<User> GetAll(){
