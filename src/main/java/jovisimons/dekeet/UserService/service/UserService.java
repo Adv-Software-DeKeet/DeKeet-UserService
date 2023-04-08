@@ -17,7 +17,7 @@ public class UserService {
     private RabbitTemplate rabbitTemplate;
 
     public void sendMessage(User user) {
-        rabbitTemplate.convertAndSend("x.de-keet", "auth", user);
+        rabbitTemplate.convertAndSend("x.de-keet", "userRegister", user);
     }
 
     public void CreateUser(User user){
