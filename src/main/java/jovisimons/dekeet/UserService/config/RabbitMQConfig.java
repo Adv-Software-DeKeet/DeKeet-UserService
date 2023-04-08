@@ -12,10 +12,10 @@ public class RabbitMQConfig {
     public Declarables createKeetSchema(){
         return new Declarables(
                 new DirectExchange("x.de-keet"),
-                new Queue("q.auth" ),
+                new Queue("q.userRegister" ),
                 new Queue("q.userUpdate" ),
                 new Queue("q.userDelete" ),
-                new Binding("q.auth", Binding.DestinationType.QUEUE, "x.de-keet", "auth", null),
+                new Binding("q.userRegister", Binding.DestinationType.QUEUE, "x.de-keet", "userRegister", null),
                 new Binding("q.userUpdate", Binding.DestinationType.QUEUE, "x.de-keet", "userUpdate", null),
                 new Binding("q.userDelete", Binding.DestinationType.QUEUE, "x.de-keet", "userDelete", null));
     }
