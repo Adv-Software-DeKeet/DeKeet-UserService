@@ -29,13 +29,13 @@ public class UserService {
     }
 
     public void UpdateUser(User user){
-        //repo.save(user);
-       // rabbitTemplate.convertAndSend("x.de-keet", "q.userUpdate", user);
+        repo.save(user);
+        rabbitTemplate.convertAndSend("x.de-keet", "userUpdate", user);
     }
 
     public void DeleteUser(String uid){
-      //  repo.deleteById(uid);
-        //rabbitTemplate.convertAndSend("x.de-keet", "q.deleteUser", uid);
+        repo.deleteById(uid);
+        rabbitTemplate.convertAndSend("x.de-keet", "deleteUser", uid);
     }
 
     public List<User> GetAll(){
