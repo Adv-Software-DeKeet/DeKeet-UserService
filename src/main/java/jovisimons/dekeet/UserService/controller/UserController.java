@@ -8,13 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RequestMapping("/users")
 @RestController
-@RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
     UserService svc;
+
+    @GetMapping
+    public ResponseEntity<List<User>> GetAllUsers(){
+        return new ResponseEntity<>(svc.GetAll(), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> GetUserDetails(@RequestBody User user){
         svc.CreateUser(user);
@@ -44,10 +49,5 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-    }
-
-    @GetMapping
-    public ResponseEntity<List<User>> GetAllUsers(){
-        return new ResponseEntity<>(svc.GetAll(), HttpStatus.OK);
     }
 }
