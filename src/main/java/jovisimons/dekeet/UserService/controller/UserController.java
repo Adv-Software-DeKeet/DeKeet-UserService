@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> UpdateUser(@PathVariable String uid, @RequestBody User user) {
+    public ResponseEntity<String> UpdateUser(@RequestBody User user) {
         try {
             svc.UpdateUser(user);
             return new ResponseEntity<>(user.getName()+" updated", HttpStatus.CREATED);
