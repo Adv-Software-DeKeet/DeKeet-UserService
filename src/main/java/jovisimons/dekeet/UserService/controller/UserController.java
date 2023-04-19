@@ -42,10 +42,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> UpdateUser(@PathVariable String id) {
+    public ResponseEntity<String> DeleteUser(@PathVariable String id) {
         try {
             svc.DeleteUser(id);
-            return new ResponseEntity<>(id+" deleted", HttpStatus.CREATED);
+            return new ResponseEntity<>(id+" deleted", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
