@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class UserService {
@@ -19,6 +21,10 @@ public class UserService {
 
     public void sendMessage(User user) {
         rabbitTemplate.convertAndSend("x.de-keet", "userRegister", user);
+    }
+
+    public Optional<User> GetUserById(String uid){
+        return repo.findById(uid);
     }
 
     public void CreateUser(User user){

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @RequestMapping("/api/user")
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -20,14 +22,14 @@ public class UserController {
         return new ResponseEntity<>(svc.GetAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<User>> GetUserByID(@PathVariable String id){
+        return new ResponseEntity<>(svc.GetUserById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> GetUserDetails(@RequestBody User user){
         svc.CreateUser(user);
-        return new ResponseEntity<>("Doet het!", HttpStatus.OK);
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> GetTest(){
         return new ResponseEntity<>("Doet het!", HttpStatus.OK);
     }
 
