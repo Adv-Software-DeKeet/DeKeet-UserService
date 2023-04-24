@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("/api/user")
+import java.util.Optional;
+
+@RequestMapping("/user")
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
@@ -20,14 +22,14 @@ public class UserController {
         return new ResponseEntity<>(svc.GetAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<User>> GetUserByID(@PathVariable String id){
+        return new ResponseEntity<>(svc.GetUserById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> GetUserDetails(@RequestBody User user){
         svc.CreateUser(user);
-        return new ResponseEntity<>("Doet het!", HttpStatus.OK);
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> GetTest(){
         return new ResponseEntity<>("Doet het!", HttpStatus.OK);
     }
 
@@ -42,10 +44,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> UpdateUser(@PathVariable String uid) {
+    public ResponseEntity<String> DeleteUser(@PathVariable String id) {
         try {
-            svc.DeleteUser(uid);
-            return new ResponseEntity<>(uid+" deleted", HttpStatus.CREATED);
+            svc.DeleteUser(id);
+            return new ResponseEntity<>(id+" deleted", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
