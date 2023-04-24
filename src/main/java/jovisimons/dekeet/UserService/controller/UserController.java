@@ -2,6 +2,7 @@ package jovisimons.dekeet.UserService.controller;
 
 import jovisimons.dekeet.common.model.User;
 import jovisimons.dekeet.UserService.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequestMapping("/user")
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -18,12 +20,14 @@ public class UserController {
     UserService svc;
 
     @GetMapping
-    public ResponseEntity<List<User>> GetAllUsers(){
+    public ResponseEntity<List<User>> GetAllUsers(@RequestHeader("id") String uid, @RequestHeader("role") String role){
+        log.info("ID: "+uid);
+        log.info("role: "+role);
         return new ResponseEntity<>(svc.GetAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> GetUserByID(@PathVariable String id){
+    public ResponseEntity<Optional<User>> GetUserByID(@RequestHeader("id") String uid, @RequestHeader("role") String role, @PathVariable String id){
         return new ResponseEntity<>(svc.GetUserById(id), HttpStatus.OK);
     }
 
