@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
