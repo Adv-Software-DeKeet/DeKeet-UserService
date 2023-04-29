@@ -43,7 +43,14 @@ public class UserService {
     }
 
     public void DeleteUser(String uid){
-        repo.deleteById(uid);
+        User deletedUser = repo.findById(uid).orElse(null);
+        log.info("Deleting user: ", uid);
+        assert deletedUser != null;
+        deletedUser.setEmail("Deleted user");
+        deletedUser.setName("Deleted user");
+        deletedUser.setRole("Deleted user");
+        deletedUser.setAuthProvider("Deleted user");
+        repo.save(deletedUser);
         log.info("User deleted: ", uid);
         String routingKey = "userDelete";
         rabbitTemplate.convertAndSend("x.de-keet", routingKey, uid);
