@@ -2,6 +2,7 @@ package jovisimons.dekeet.common.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Builder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 
 @Document
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, scope = User.class)
+@Builder
 public class User implements Serializable {
 
     @Id

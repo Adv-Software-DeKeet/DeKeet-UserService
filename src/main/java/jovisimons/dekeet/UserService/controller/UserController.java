@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -19,6 +20,11 @@ public class UserController {
     @Autowired
     UserService svc;
 
+    @GetMapping("/test")
+    public String test() {
+        return "hallo";
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> GetAllUsers(@RequestHeader("id") String uid, @RequestHeader("role") String role){
         log.info("ID: "+uid);
@@ -28,7 +34,10 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> GetUserByID(@RequestHeader("id") String uid, @RequestHeader("role") String role, @PathVariable String id){
-        return new ResponseEntity<>(svc.GetUserById(id), HttpStatus.OK);
+        if(Objects.equals(uid, id) || Objects.equals(role, "admin"))
+            return new ResponseEntity<>(svc.GetUserById(id), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping
@@ -38,9 +47,12 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> UpdateUser(@RequestBody User user) {
+    public ResponseEntity<String> UpdateUser(@RequestHeader("id") String uid, @RequestHeader("role") String role, @RequestBody User user) {
         try {
-            svc.UpdateUser(user);
+            if(Objects.equals(uid, user.getUid()) || Objects.equals(role, "admin"))
+                svc.UpdateUser(user);
+            else
+                return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
             return new ResponseEntity<>(user.getName()+" updated", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -48,9 +60,12 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> DeleteUser(@PathVariable String id) {
+    public ResponseEntity<String> DeleteUser(@RequestHeader("id") String uid, @RequestHeader("role") String role, @PathVariable String id) {
         try {
-            svc.DeleteUser(id);
+            if(Objects.equals(uid, id) || Objects.equals(role, "admin"))
+                svc.DeleteUser(id);
+            else
+                return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
             return new ResponseEntity<>(id+" deleted", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
