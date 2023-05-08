@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@DataMongoTest
 public class AuthTest {
 
     @Autowired
