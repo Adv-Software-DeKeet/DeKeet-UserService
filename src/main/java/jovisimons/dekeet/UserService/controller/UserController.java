@@ -20,6 +20,11 @@ public class UserController {
     @Autowired
     UserService svc;
 
+    @GetMapping("/test")
+    public String test() {
+        return "hallo";
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> GetAllUsers(@RequestHeader("id") String uid, @RequestHeader("role") String role){
         log.info("ID: "+uid);
