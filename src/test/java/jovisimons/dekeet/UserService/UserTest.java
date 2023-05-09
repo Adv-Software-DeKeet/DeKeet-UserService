@@ -7,22 +7,26 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Objects;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@DataMongoTest
+@AutoConfigureDataMongo
 @Slf4j
-public class UserTest {
+@ExtendWith(SpringExtension.class)
+@EnableAutoConfiguration()
+public class UserTest extends BaseClass{
     @Autowired
     private UserRepo userRepository;
 
     @BeforeAll
     public void setup(){
         User user = new User("test", "james@bond", "test", "James", "local", "default");
-
         userRepository.save(user);
     }
 

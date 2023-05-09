@@ -8,16 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        mongodb-version: ['5.0']
 
 
     steps:
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.8.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
       - uses: actions/checkout@v3
       - name: Set up JDK 19
         uses: actions/setup-java@v3
