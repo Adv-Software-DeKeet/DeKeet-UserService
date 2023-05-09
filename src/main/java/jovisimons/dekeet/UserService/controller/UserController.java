@@ -53,7 +53,7 @@ public class UserController {
                 svc.UpdateUser(user);
             else
                 return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
-            return new ResponseEntity<>(user.getName()+" updated", HttpStatus.CREATED);
+            return new ResponseEntity<>(user.getName()+" updated", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
