@@ -13,9 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-public class AuthTest {
+public class AuthTest extends BaseClass {
 
     @Autowired
     private MockMvc mockMvc;
