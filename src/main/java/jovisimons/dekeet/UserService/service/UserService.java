@@ -33,7 +33,8 @@ public class UserService {
             user.setRole("default");
         if(user.getEmail().equals("jovisimons009@gmail.com"))
             user.setRole("admin");
-        repo.save(user);
+        user.setAuthProvider("local");
+        repo.insert(user);
         sendMessage(user);
     }
 
