@@ -33,7 +33,8 @@ public class UserService {
             user.setRole("default");
         if(user.getEmail().equals("jovisimons009@gmail.com"))
             user.setRole("admin");
-        repo.save(user);
+        user.setAuthProvider("local");
+        repo.insert(user);
         sendMessage(user);
     }
 
@@ -44,17 +45,17 @@ public class UserService {
 
     public void DeleteUser(String uid){
         User deletedUser = repo.findById(uid).orElse(null);
-        log.info("Deleting user: ", uid);
+        log.info("Deleting user: "+ uid);
         assert deletedUser != null;
         deletedUser.setEmail("Deleted user");
         deletedUser.setName("Deleted user");
         deletedUser.setRole("Deleted user");
         deletedUser.setAuthProvider("Deleted user");
         repo.save(deletedUser);
-        log.info("User deleted: ", uid);
+        log.info("User deleted: "+ uid);
         String routingKey = "userDelete";
         rabbitTemplate.convertAndSend("x.de-keet", routingKey, uid);
-        log.info(" send to royutingkey :  ", routingKey);
+        log.info(" send to royutingkey :  "+ routingKey);
     }
 
     public List<User> GetAll(){
