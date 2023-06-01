@@ -2,6 +2,7 @@ package jovisimons.dekeet.UserService.service;
 
 import jovisimons.dekeet.common.model.User;
 import jovisimons.dekeet.UserService.repo.UserRepo;
+import jovisimons.dekeet.common.model.UserMsgName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,8 @@ public class UserService {
 
     public void UpdateUser(User user){
         repo.save(user);
-        rabbitTemplate.convertAndSend("x.de-keet", "userUpdate", user);
+        UserMsgName sendUser = new UserMsgName(user.getUid(), user.getName());
+        rabbitTemplate.convertAndSend("x.de-keet", "userUpdate", sendUser);
     }
 
     public void DeleteUser(String uid){

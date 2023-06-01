@@ -16,6 +16,7 @@ public class RabbitMQConfig {
                 new Queue("q.userUpdate" ),
                 new Queue("q.event_userDelete" ),
                 new Queue("q.event_userUpdate" ),
+                new Queue("q.userDelete" ),
                 new Binding("q.userRegister", Binding.DestinationType.QUEUE, "x.de-keet", "userRegister", null),
                 new Binding("q.userUpdate", Binding.DestinationType.QUEUE, "x.de-keet", "userUpdate", null),
                 new Binding("q.event_userUpdate", Binding.DestinationType.QUEUE, "x.de-keet", "userUpdate", null),

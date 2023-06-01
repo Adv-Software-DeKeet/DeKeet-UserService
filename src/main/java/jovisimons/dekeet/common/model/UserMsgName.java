@@ -1,6 +1,8 @@
 package jovisimons.dekeet.common.model;
 
-public class UserMsgName {
+import java.io.Serializable;
+
+public class UserMsgName implements Serializable {
     private String uid;
     private String name;
 
